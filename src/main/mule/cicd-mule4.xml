@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="d6eb6428-511a-4147-af5b-64bcb727e40a" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="mule-jenkins-pipelineFlow" doc:id="ab83a9ed-510d-4975-bc52-b5993f786cb2" >
+		<http:listener doc:name="Listener" doc:id="228b183f-4652-4553-b37b-3578b8987a50" config-ref="HTTP_Listener_config" path="/hello"/>
+		<set-payload value="#['Hello']" doc:name="Set Payload" doc:id="2f8234ee-4fd3-43a1-96b0-373d7b9ec14e" />
+		<tracking:custom-event doc:name="Custom Business Event" doc:id="bf12ee29-3a8f-482c-87f1-73cbc7c0eab9" event-name="test-event">
+			<tracking:meta-data key="id" value="1" />
+		</tracking:custom-event>
+	</flow>
+</mule>
